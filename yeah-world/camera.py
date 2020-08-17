@@ -32,7 +32,9 @@ class Camera(object):
         self.training_mode = training_mode
         self.camera = PiCamera()
         self.camera.resolution = (128, 128)
+        self.camera.color_effects = (128, 128)
         self.camera.framerate = 30
+        self.camera.start_preview(fullscreen=False, window=(100, 20, 640, 480))
         self.capture = PiRGBArray(self.camera, size=self.camera.resolution)
         self.stream = self.camera.capture_continuous(self.capture,
                                                      format='rgb',
@@ -54,11 +56,11 @@ class Camera(object):
         exchange FPS for lower latency. When responding to gestures latency is
         more important to the user experience. """
         self.capture.truncate(0)
-        if self.training_mode:
-            self.camera.iso = choice([100, 200, 320, 400, 500, 640, 800])
-            awb_r = max(0., uniform(-.5, .5) + self.base_awb[0])
-            awb_b = max(0., uniform(-.5, .5) + self.base_awb[1])
-            self.camera.awb_gains = (awb_r, awb_b)
+        #if self.training_mode:
+        self.camera.iso = choice([100, 200, 320, 400, 500, 640, 800])
+#        awb_r = max(0., uniform(-.5, .5) + self.base_awb[0])
+#        awb_b = max(0., uniform(-.5, .5) + self.base_awb[1])
+#        self.camera.awb_gains = (awb_r, awb_b)
 
         frame = next(self.stream).array
         return frame

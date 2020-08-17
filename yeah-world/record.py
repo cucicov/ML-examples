@@ -26,10 +26,10 @@ from camera import Camera
 
 
 
-SHOW_UI = getenv("DISPLAY")
+#SHOW_UI = getenv("DISPLAY")
 
-if SHOW_UI:
-    pygame.init()
+#if SHOW_UI:
+#pygame.init()
 
 def main():
     if len(argv) != 3:
@@ -48,20 +48,22 @@ Record frames from the camera for SECONDS seconds and save them in FILENAME""" %
 
 def status(text):
     """ Show a status update to the command-line and optionally the UI if enabled """
-    if SHOW_UI:
-        pygame.display.set_caption(text)
-    stdout.write('\r%s' % text)
-    stdout.flush()
+    #if SHOW_UI:
+    sleep(0.1)
+#    pygame.display.set_caption(text)
+#    stdout.write('\r%s' % text)
+#    stdout.flush()
 
 
 def record(camera, filename, seconds):
     """ Record from the camera """
 
     # Create window so people can see themselves in the camera while we are recording
-    if SHOW_UI:
-        pygame.display.init()
-        pygame.display.set_caption('Loading...')
-        screen = pygame.display.set_mode((512, 512))
+    #if SHOW_UI:
+    sleep(0.1)
+#    pygame.display.init()
+#    pygame.display.set_caption('Loading...')
+#    screen = pygame.display.set_mode((512, 512))
 
     delay = 3 # Give people a 3 second warning to get ready
     started = time()
@@ -80,14 +82,15 @@ def record(camera, filename, seconds):
                (len(frames), max(0, seconds - (time() - started))))
 
         # Show the image in a preview window so you can tell if you are in frame
-        if SHOW_UI:
-            surface = pygame.surfarray.make_surface(frame)
-            screen.blit(pygame.transform.scale(surface, (512, 512)), (0, 0))
-            pygame.display.flip()
-            for evt in pygame.event.get():
-                if evt.type == pygame.QUIT:
-                    pygame.quit()
-                    exit(1)
+        #if SHOW_UI:
+        sleep(0.1)
+#        surface = pygame.surfarray.make_surface(frame)
+#        screen.blit(pygame.transform.scale(surface, (512, 512)), (0, 0))
+#        pygame.display.flip()
+#        for evt in pygame.event.get():
+#            if evt.type == pygame.QUIT:
+#                pygame.quit()
+#                exit(1)
 
     print('')
 
